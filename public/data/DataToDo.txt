@@ -1,0 +1,121 @@
+Indonesia
+---------------
+Kode yang diberikan adalah komponen React yang mengimplementasikan daftar tugas yang dapat disimpan secara lokal. Berikut penjelasan fungsinya:
+
+- **Import:**
+   - `useState` dan `useEffect` adalah hook React untuk mengelola state dan efek samping.
+
+- **State:**
+   - `todos`: Menampung daftar tugas dalam bentuk array objek. Setiap objek tugas memiliki properti `id` dan `text`.
+   - `todoInput`: Menampung teks tugas baru yang dimasukkan pengguna.
+
+- **Efek Samping:**
+   - **useEffect(..., [])**: Berjalan sekali saat komponen pertama kali dipasang. Digunakan untuk mengambil tugas yang disimpan secara lokal dari localStorage dan memperbarui state `todos` dengan tugas-tugas tersebut.
+   - **useEffect(..., [todos])**: Berjalan setiap kali state `todos` berubah. Digunakan untuk menyimpan tugas saat ini ke localStorage.
+
+- **Fungsi:**
+   - `addTodo`: Menambahkan tugas baru ke state `todos` jika `todoInput` tidak kosong.
+   - `removeTodo`: Menghapus tugas dari state `todos` berdasarkan ID-nya.
+
+- **Markup:**
+   - Komponen ini memiliki antarmuka pengguna yang terdiri dari:
+     - Judul "To Do List".
+     - Input untuk memasukkan teks tugas baru.
+     - Tombol "Add" untuk menambahkan tugas baru.
+     - Daftar tugas yang menampilkan setiap tugas sebagai item daftar dengan tombol "X" untuk menghapusnya.
+
+- **Cara Kerja:**
+   1. Saat komponen dipasang, efek samping pertama berjalan dan mengambil tugas yang disimpan secara lokal dari localStorage.
+   2. Pengguna dapat memasukkan teks tugas baru ke dalam input dan mengklik tombol "Add" untuk menambahkan tugas ke daftar.
+   3. Efek samping kedua berjalan setiap kali state `todos` berubah dan menyimpan tugas saat ini ke localStorage.
+   4. Pengguna dapat mengklik tombol "X" pada item daftar tugas untuk menghapus tugas dari daftar.
+
+Secara keseluruhan, komponen ini menyediakan antarmuka yang mudah digunakan untuk mengelola daftar tugas yang dapat disimpan secara lokal, memungkinkan pengguna untuk menambahkan, menghapus, dan menyimpan tugas mereka.
+
+English
+---------------
+The code provided is a React component that implements a task list that can be stored locally. The following is an explanation of its function:
+
+- **Import:**
+    - `useState` and `useEffect` are React hooks for managing state and side effects.
+
+- **State:**
+    - `todos`: Holds a list of tasks in the form of an array of objects. Each task object has `id` and `text` properties.
+    - `todoInput`: Holds new task text entered by the user.
+
+- **Side effects:**
+    - **useEffect(..., [])**: Runs once when the component is first installed. Used to retrieve locally stored tasks from localStorage and update the `todos` state with them.
+    - **useEffect(..., [todos])**: Runs every time `todos` state changes. Used to save the current task to localStorage.
+
+- **Function:**
+    - `addTodo`: Adds a new task to the `todos` state if `todoInput` is not empty.
+    - `removeTodo`: Removes a task from the `todos` state based on its ID.
+
+- **Markup:**
+    - This component has a user interface consisting of:
+      - Title "To Do List".
+      - Input to enter new task text.
+      - "Add" button to add a new task.
+      - A task list that displays each task as a list item with an "X" button to delete it.
+
+- **Ways of working:**
+    1. When the component is installed, the first side effect runs and fetches the locally stored tasks from localStorage.
+    2. Users can enter new task text into the input and click the "Add" button to add the task to the list.
+    3. The second side effect runs every time the `todos` state changes and saves the current task to localStorage.
+    4. Users can click the “X” button on the task list item to remove the task from the list.
+
+Overall, this component provides an easy-to-use interface for managing locally saved task lists, allowing users to add, delete, and save their tasks.
+
+Source Code
+```
+import { useState, useEffect } from "react"; //Hooks
+
+const ToDoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [todoInput, setTodoInput] = useState("");
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos"));
+    if (storedTodos) setTodos(storedTodos);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = () => {
+    if (todoInput !== "") {
+      setTodos([...todos, { id: Date.now(), text: todoInput }]);
+      setTodoInput("");
+    }
+  };
+
+  const removeTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  return (
+    <div className="flex flex-col py-6 items-center w-full h-screen">
+      <div className="font-bold text-2xl mb-6">
+		To Do List
+	  </div>
+      <div className="flex w-full my-4 max-w-md">
+        <input type="text" placeholder="Add a todo" className="border-2 border-gray-300 rounded px-2 py-1 w-full" onChange={(e) => setTodoInput(e.target.value)} />
+        <button onClick={addTodo} className="bg-blue-500 ms-2 px-2 py-1 rounded text-white">Add</button>
+      </div>
+      <ul className="flex flex-col gap-2 w-full max-w-md">
+        {todos.map((todo) => (
+          <li key={todo.id} className="flex justify-between items-center w-full px-4 py-2 bg-gray-200 rounded">
+            <span>{todo.text}</span>
+            <button onClick={() => removeTodo(todo.id)} className="text-red-500">X</button>
+          </li>
+
+        ))}
+      </ul>
+
+    </div>
+  );
+};
+
+export default ToDoList;
+```

@@ -1,24 +1,3 @@
-# React Hook
-
-Hello, my name is Fitri HY. I am a Front End Developer. This is Basic React Hook project  and React Routes using Tailwind CSS Framework.
-
-## How to install
-```sh
-git clone https://github.com/fitri-hy/react-hook.git
-```
-```sh
-npm install
-```
-```sh
-npm start
-```
-
-## How to builf
-```sh
-npm run build
-```
-
-## Structure folder
 # Structure Folder
 root
 ├── public
@@ -69,5 +48,3 @@ root
 ├── package.json
 ├── README.md
 └── tailwind.config.js
-
-Follow Me: [FOLLOW](https://hy-tech.my.id/)

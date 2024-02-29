@@ -1,0 +1,132 @@
+Indonesia
+---------------
+Kode ini adalah komponen React yang memungkinkan pengguna membuat dan mengunduh kode QR. Berikut penjelasan fungsinya:
+
+- **Import:**
+   - `useState` dan `useRef` digunakan untuk mengelola state dan referensi elemen DOM.
+   - `QRCode` adalah modul untuk membuat kode QR.
+
+- **State:**
+   - `text`: Menampung teks atau URL yang akan diubah menjadi kode QR.
+   - `image`: Menampung data URL dari kode QR yang dihasilkan.
+
+- **Fungsi:**
+   - `generateQrCode`: Membuat kode QR menggunakan modul `QRCode` dan memperbarui state `image` dengan data URL yang dihasilkan.
+   - `downloadQrCode`: Mengunduh kode QR sebagai file gambar dengan mengklik tombol.
+
+- **Markup:**
+   - Komponen ini memiliki antarmuka pengguna yang terdiri dari:
+     - Input untuk memasukkan teks atau URL.
+     - Tombol untuk menghasilkan kode QR.
+     - Area untuk menampilkan kode QR yang dihasilkan dan tombol untuk mengunduhnya.
+
+- **Cara Kerja:**
+   1. Pengguna memasukkan teks atau URL ke dalam input.
+   2. Ketika tombol "Generate" diklik, fungsi `generateQrCode` dipanggil.
+   3. Fungsi ini menggunakan modul `QRCode` untuk membuat kode QR dari teks atau URL yang dimasukkan.
+   4. Data URL dari kode QR yang dihasilkan disimpan dalam state `image`.
+   5. Jika kode QR berhasil dihasilkan, komponen akan menampilkan kode QR di layar.
+   6. Pengguna dapat mengklik tombol "Download" untuk mengunduh kode QR sebagai file gambar.
+
+Secara keseluruhan, komponen ini menyediakan antarmuka yang mudah digunakan untuk membuat dan mengunduh kode QR dari teks atau URL yang diberikan pengguna.
+
+English
+---------------
+This code is a React component that allows users to create and download QR codes. The following is an explanation of its function:
+
+- **Import:**
+    - `useState` and `useRef` are used to manage the state and references of DOM elements.
+    - `QRCode` is a module for creating QR codes.
+
+- **State:**
+    - `text`: Holds the text or URL that will be converted into a QR code.
+    - `image`: Holds the URL data of the generated QR code.
+
+- **Function:**
+    - `generateQrCode`: Generates a QR code using the `QRCode` module and updates the `image` state with the generated URL data.
+    - `downloadQrCode`: Downloads a QR code as an image file with the click of a button.
+
+- **Markup:**
+    - This component has a user interface consisting of:
+      - Input to enter text or URL.
+      - Button to generate QR code.
+      - Area to display the generated QR code and button to download it.
+
+- **Ways of working:**
+    1. User enters text or URL into input.
+    2. When the "Generate" button is clicked, the `generateQrCode` function is called.
+    3. This function uses the `QRCode` module to create a QR code from the entered text or URL.
+    4. The URL data of the generated QR code is stored in the `image` state.
+    5. If the QR code is generated successfully, the component will display the QR code on the screen.
+    6. Users can click the "Download" button to download the QR code as an image file.
+
+Overall, this component provides an easy-to-use interface to create and download QR codes from user-supplied text or URLs.
+
+Code Sumber
+```
+import { useState, useRef } from "react"; // Hook
+import QRCode from "qrcode"; // Module
+
+const QrCode = () => {
+  const [text, setText] = useState("");
+  const [image, setImage] = useState("");
+  const imageRef = useRef(null);
+
+  const generateQrCode = () => {
+    QRCode.toDataURL(text, {
+      errorCorrectionLevel: "H",
+      type: "image/jpeg",
+      quality: 0.9,
+      margin: 4,
+      borderWidth: 2,
+    })
+
+      .then((data) => {
+        setImage(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const downloadQrCode = () => {
+    const image = imageRef.current;
+    if (image) {
+      const link = document.createElement("a");
+      link.href = image.src;
+      link.download = "qr-code.jpg";
+      link.click();
+    }
+  };
+
+  return (
+    <div className="flex flex-col py-6 items-center w-full h-screen">
+		<h1 className="font-bold text-2xl mb-6">QR-CODE GENERATOR</h1>
+		<div className="flex">
+		  <input
+			type="text"
+			className="border border-gray-300 rounded-md p-2 me-2"
+			placeholder="Enter text or url .."
+			value={text}
+			onChange={(e) => setText(e.target.value)}
+		  />
+		  <button className="bg-blue-300 rounded-md p-2 text-gray-600" onClick={generateQrCode}>
+			Generate
+		  </button>
+	  </div>
+	  <div className="mt-12 flex flex-col items-center">
+		  {image && (
+			<>
+			  <img ref={imageRef} src={image} alt="QR code" className="w-[200px] border-2" />
+			  <button className="bg-green-300 rounded-md p-2 mt-2 text-gray-600" onClick={downloadQrCode}>
+				Download
+			  </button>
+			</>
+		  )}
+	  </div>
+    </div>
+  );
+};
+
+export default QrCode;
+```

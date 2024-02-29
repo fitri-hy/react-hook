@@ -1,0 +1,88 @@
+Indonesia
+---------------
+Kode ini adalah komponen React yang disebut `Counter`. Komponen ini memiliki kemampuan untuk melacak dan memodifikasi sebuah nilai numerik, dalam hal ini sebuah angka yang mewakili jumlah hitungan.
+
+Berikut penjelasan detail dari kode tersebut:
+
+1. **Import**:
+- `import { useState } from "react";`: Mengimpor hook `useState` dari library React, yang digunakan untuk mengelola status komponen.
+- `import ReactDOM from "react-dom";`: Mengimpor `ReactDOM` untuk merender komponen ke dalam DOM.
+
+2. **Komponen Counter**:
+- `const Counter = () => { ... }`: Mendefinisikan komponen fungsional React bernama `Counter`.
+
+3. **State**:
+- `const [count, setCount] = useState(0);`: Menggunakan hook `useState` untuk membuat dan mengatur sebuah state bernama `count` dengan nilai awal 0. `count` melacak jumlah hitungan saat ini, dan `setCount` adalah fungsi yang digunakan untuk memperbarui nilai `count`.
+
+4. **Handler**:
+- `const handleIncrement = () => { ... }`: Mendefinisikan sebuah event handler bernama `handleIncrement` yang akan meningkatkan nilai `count` sebanyak 1.
+- `const handleDecrement = () => { ... }`: Mendefinisikan sebuah event handler bernama `handleDecrement` yang akan mengurangi nilai `count` sebanyak 1.
+
+5. **Render**:
+- `return ( ... )`: Mengembalikan JSX (JavaScript XML) yang akan dirender ke dalam DOM.
+- Komponen ini menampilkan tajuk "COUNTER", nilai `count` saat ini, dan dua tombol untuk menambah dan mengurangi `count`.
+
+6. **Export**:
+- `export default Counter;`: Mengekspor komponen `Counter` agar dapat digunakan di tempat lain dalam aplikasi React.
+
+Secara keseluruhan, komponen ini menyediakan cara interaktif untuk melacak dan memodifikasi jumlah hitungan, yang dapat digunakan untuk berbagai tujuan seperti membuat penghitung waktu mundur, penghitung langkah, atau jenis aplikasi penghitungan lainnya.
+
+English
+---------------
+This code is a React component called `Counter`. This component has the ability to track and modify a numeric value, in this case a number that represents the number of calculations.
+
+The following is a detailed explanation of the code:
+
+1. **Import**:
+- `import { useState } from "react";`: Imports the `useState` hook from the React library, which is used to manage component state.
+- `import ReactDOM from "react-dom";`: Import `ReactDOM` to render components into the DOM.
+
+2. **Component Counter**:
+- `const Counter = () => { ... }`: Defines a React functional component named `Counter`.
+
+3. **Country**:
+- `const [count, setCount] = useState(0);`: Uses the `useState` hook to create and set a state named `count` with an initial value of 0. `count` tracks the current count, and `setCount` is a function which is used to update the `count` value.
+
+4. **Handler**:
+- `const handleIncrement = () => { ... }`: Defines an event handler named `handleIncrement` that will increment the value of `count` by 1.
+- `const handleDecrement = () => { ... }`: Defines an event handler named `handleDecrement` that will decrement the `count` value by 1.
+
+5. **Render**:
+- `return ( ... )`: Returns the JSX (JavaScript XML) that will be rendered into the DOM.
+- This component displays the title "COUNTER", the current `count` value, and two buttons to increase and decrease the `count`.
+
+6. **Export**:
+- `export default Counter;`: Exports the `Counter` component so it can be used elsewhere in the React application.
+
+Overall, this component provides an interactive way to scan and modify count counts, which can be used for various purposes such as creating countdown timers, step counters, or other types of counting applications.
+
+Source Code
+```
+import { useState } from "react"; //Hook
+import ReactDOM from "react-dom";
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const handleIncrement = () => {
+    setCount(prevCount => prevCount + 1);
+  };
+
+  const handleDecrement = () => {
+    setCount(prevCount => prevCount - 1);
+  };
+
+  return (
+    <div className="flex flex-col py-6 items-center w-full h-auto">
+      <h1 className="font-bold text-2xl mb-6">COUNTER</h1>
+	  <span className="mb-4 mt-2 bg-slate-200 p-4 rounded-md shadow-sm text-2xl font-bold">{count}</span>
+	  <div className="flex">
+		<button className="mx-2 bg-rose-200 px-4 rounded-md" onClick={handleDecrement}>-</button>
+		<button className="mx-2 bg-green-200 px-4 rounded-md" onClick={handleIncrement}>+</button>
+	  </div>
+    </div>
+  );
+};
+
+export default Counter;
+```

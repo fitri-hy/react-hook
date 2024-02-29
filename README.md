@@ -1,6 +1,6 @@
 # React Hook
 
-Hello, my name is Fitri HY. I am a Front End Developer. This is Basic React Hook project  and React Routes using Tailwind CSS Framework.
+This is Basic React Hook project  and React Routes using Tailwind CSS Framework.
 
 ## How to install
 ```sh
